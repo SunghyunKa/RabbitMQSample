@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-consumer
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-consumer
+    spec:
+      containers:
+        - name: rabbitmq-consumer
+          image: rabbitmq-consumer
+          ports:
+            - containerPort: 3000
+          env:
+            - name: RABBITMQ_URL
+              value: "amqp://user:user1234@my-rabbit.default.svc.cluster.local:5672"
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-consumer
+spec:
+  type: ClusterIP
+  selector:
+    app: rabbitmq-consumer
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000     

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq-producer
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-producer
+    spec:
+      containers:
+        - name: rabbitmq-producer
+          image: rabbitmq-producer  # Skaffold가 빌드할 이미지
+          ports:
+            - containerPort: 3000
+          env:
+            - name: RABBITMQ_URL
+              value: "amqp://user:user1234@my-rabbit.default.svc.cluster.local:5672" # 주의
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-producer
+spec:
+  type: ClusterIP
+  selector:
+    app: rabbitmq-producer
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000              

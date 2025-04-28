@@ -1,0 +1,24 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+build:
+  artifacts:
+    - image: rabbitmq-producer  # 빌드할 이미지 이름
+      context: rabbitmq-producer       # 소스코드 있는 디렉토리
+    - image: rabbitmq-consumer  # 빌드할 이미지 이름
+      context: rabbitmq-consumer       # 소스코드 있는 디렉토리
+deploy:
+  kubectl:
+    manifests:
+      - k8s/**.yaml
+portForward:
+  - resourceType: service
+    resourceName: rabbitmq-producer
+    namespace: default
+    port: 3000
+    localPort: 31001
+  - resourceType: service
+    resourceName: rabbitmq-consumer
+    namespace: default
+    port: 3000
+    localPort: 31002
+
