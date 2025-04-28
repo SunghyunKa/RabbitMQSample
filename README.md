@@ -53,6 +53,37 @@ kubectl apply -f https://github.com/rabbitmq/cluster-operator/releases/latest/do
 minikube start
 skaffold dev --port-forward
 ```
+정상 가동되는지 확인. RabbitMQ가 기동하는데 시간이 좀 소요됨
+```bash
+kubectl get all
+
+NAME                                     READY   STATUS    RESTARTS   AGE
+pod/my-rabbit-server-0                   1/1     Running   0          48s
+pod/rabbitmq-consumer-7dd59dd85-cl6rr    1/1     Running   0          49s
+pod/rabbitmq-producer-586cff599b-knggt   1/1     Running   0          49s
+
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                        AGE
+service/kubernetes          ClusterIP   10.96.0.1       <none>        443/TCP                        65m
+service/my-rabbit           ClusterIP   10.105.28.157   <none>        5672/TCP,15672/TCP,15692/TCP   48s
+service/my-rabbit-nodes     ClusterIP   None            <none>        4369/TCP,25672/TCP             48s
+service/my-rabbit-ui        NodePort    10.100.246.60   <none>        15672:31567/TCP                49s
+service/rabbitmq-consumer   ClusterIP   10.108.97.74    <none>        3000/TCP                       49s
+service/rabbitmq-producer   ClusterIP   10.96.151.34    <none>        3000/TCP                       49s
+
+NAME                                READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/rabbitmq-consumer   1/1     1            1           49s
+deployment.apps/rabbitmq-producer   1/1     1            1           49s
+
+NAME                                           DESIRED   CURRENT   READY   AGE
+replicaset.apps/rabbitmq-consumer-7dd59dd85    1         1         1       49s
+replicaset.apps/rabbitmq-producer-586cff599b   1         1         1       49s
+
+NAME                                READY   AGE
+statefulset.apps/my-rabbit-server   1/1     48s
+
+NAME                                     ALLREPLICASREADY   RECONCILESUCCESS   AGE
+rabbitmqcluster.rabbitmq.com/my-rabbit   True               True               49s
+```
 
 RabbitMQ UI 접속 : http://127.0.0.1:15672/
 1. 로그인 admin/admin
