@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 let pushIndex = 0;
 // RabbitMQ 연결 정보
-const RABBITMQ_URL =  process.env.RABBITMQ_URL || 'amqp://user:user1234@my-rabbit.default.svc.cluster.local:5672';
+const RABBITMQ_URL =  process.env.RABBITMQ_URL || 'amqp://admin:admin@my-rabbit.default.svc.cluster.local:5672';
 const QUEUE_NAME = 'test-queue';                             // 보낼 큐 이름
 
 // Middleware

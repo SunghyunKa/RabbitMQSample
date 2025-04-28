@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 // RabbitMQ 연결 정보
-const RABBITMQ_URL = process.env.RABBITMQ_URL || 'amqp://user:user1234@my-rabbit.default.svc.cluster.local:5672';
+const RABBITMQ_URL = process.env.RABBITMQ_URL || 'amqp://admin:admin@my-rabbit.default.svc.cluster.local:5672';
 const QUEUE_NAME = 'test-queue'; // Producer와 같은 큐 이름
 
 // 메시지를 저장할 임시 메모리
@@ -49,5 +49,5 @@ app.listen(port, () => {
   console.log(`Consumer server listening at http://localhost:${port}`);
   connectRabbitMQ(); // 서버가 뜨면 바로 RabbitMQ 연결 시도
 
-  
+
 });

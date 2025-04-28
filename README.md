@@ -55,15 +55,11 @@ skaffold dev --port-forward
 ```
 
 RabbitMQ UI 접속 : http://127.0.0.1:15672/
-계정 생성 필요
 1. 로그인 admin/admin
-2. Admin 탭 이동
-3. user/user1234 로 정보 입력 후 [Add user] 클릭
-4. 생성된 user 들어가서 [Set permission], [Set topic permission] 클릭 후 비밀번호에 user1234 입력 후 [Update user] 클릭
-5. 로그에 consumer가 접속되는지 확인
-6. Producer 접속 : http://127.0.0.1:31001
-7. 원하는 숫자를 입력하면 자동으로 메세지 전송
-8. api 호출로 테스트
+2. Producer 접속 : http://127.0.0.1:31001
+3. 원하는 숫자를 입력하면 자동으로 메세지 전송
+4. Consumer 접속 : http://127.0.0.1:31002
+5. api 호출로 테스트
 POST http://127.0.0.1:31001/send/push
 ```json
 {
