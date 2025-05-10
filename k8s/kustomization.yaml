@@ -1,0 +1,4 @@
+resources:
+  - rabbitmq.yaml
+  - mq-consumer.yaml
+  - mq-producer.yaml
