@@ -1,6 +1,8 @@
 apiVersion: skaffold/v2beta10
 kind: Config
 build:
+  local:
+    push: true    
   artifacts:
     - image: asia-northeast3-docker.pkg.dev/architect-certification-289902/team6/rabbitmq-producer  # 빌드할 이미지 이름
       context: rabbitmq-producer       # 소스코드 있는 디렉토리
